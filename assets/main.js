@@ -149,7 +149,7 @@
     highlightData(layer.feature.properties);
   }
 
-  Promise.all([fetch("/data/tx-counties.geojson"), fetch("/data/filtered.csv")])
+  Promise.all([fetch("../data/tx-counties.geojson"), fetch("../data/filtered.csv")])
     .then(function (responses) {
       const counties = responses[0].json();
       const formData = responses[1].text();
