@@ -48,7 +48,7 @@
       {
         paging: false,
         scrollCollapse: true,
-        scrollY: '200px'
+        scrollY: '400px'
       }
     );
 
@@ -73,7 +73,13 @@
     })
 
     if (entries && entries[0]) {
-      entries[0].scrollIntoView();
+      console.log(entries[0])
+      
+      document.querySelector('.dt-scroll-body').scrollTo({
+        top: entries[0].offsetTop,
+        left: 0,
+        behavior: "smooth",
+      })
     }
 
   }
