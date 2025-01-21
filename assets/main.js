@@ -4,14 +4,15 @@
     const counties = await countiesPromise;
     const formTXT = await formDataPromise;
 
-    const [headerRow, ...formRows] = formTXT.split("\n");
+    const [headerRow, ...formRows] = formTXT.split("\r\n");
 
-    const headers = headerRow.split(",");
+    const headers = headerRow.split("\t");
     const entries = formRows
       .map(function (formRow) {
-        return formRow.split(",");
+        return formRow.split("\t");
       })
       .filter(function (formRowSplit) {
+        console.log({ formRowSplit })
         return formRowSplit.length === headers.length;
       })
       .map(function (formRowSplit) {
@@ -23,6 +24,7 @@
 
         return rowData;
       })
+    console.log({ entries, formTXT, headerRow, formRows, headers })
     const formData = Object.groupBy(
       entries,
       function (formData) {
@@ -155,7 +157,7 @@
     highlightData(layer.feature.properties);
   }
 
-  Promise.all([fetch("./data/tx-counties.geojson"), fetch("./data/filtered.csv")])
+  Promise.all([fetch("./data/tx-counties.geojson"), fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vQe6otdyhVEVKf744PAhGz9UNtQ1ELrfTHkyEUrQvkTEh37xsGIjLg7HU5q1Lpcpp4cqNvXpSL_2q4e/pub?output=tsv")])
     .then(function (responses) {
       const counties = responses[0].json();
       const formData = responses[1].text();
